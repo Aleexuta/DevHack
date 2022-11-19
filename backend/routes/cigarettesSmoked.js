@@ -1,16 +1,16 @@
 require('dotenv').config()
 const express = require('express');
 const router = express.Router();
-const profileSchema = require('../models/SmokersProfiles');
+const cigaretteSchema = require('../models/cigarettesSmoked');
 const idFunctions = require('../middlewares/routesFunc');
 
 router.get('/', async (req, res) => {
     try{
-        const profiles = await profileSchema.find();
-        res.status(200).json(profiles);
+        const cigarette = await cigaretteSchema.find();
+        res.status(200).json(cigarette);
     }
     catch(err) {
-        res.status(500).json({message: "Error getting smokers profiles!"});
+        res.status(500).json({message: "Error getting cigarettes!"});
     }
    
 })
@@ -19,10 +19,12 @@ router.get('/', async (req, res) => {
 //GET one  --id
 router.get('/:id', idFunctions.getSmokerProfileID, async (req, res) => {
     try{
-        res.status(200).json(res.profile);
+        //size of ciggaretesSmoked
+        res.cigarretes
+        
     }
     catch(err){
-        res.status(500).json({message: "Error getting smoker!"});
+        res.status(500).json({message: "Error getting smoker!1"});
     }
     
 })
@@ -30,20 +32,16 @@ router.get('/:id', idFunctions.getSmokerProfileID, async (req, res) => {
 
 //POST
 router.post('/', async (req, res) => {
-    const profile = new profileSchema({ 
-        smokerId: req.body.smokerId,
-        cigarettesGoal: req.body.cigarettesGoal,
-        dailyNot: req.body.dailyNot,
-        weeklyNot: req.body.weeklyNot,
-        noNot: req.body.noNot
+    const cigarette = new cigaretteSchema({ 
+        smokerId: req.body.smokerId
     });
 
     try{
-        const newProfile = await profile.save();
-        res.status(201).json(newProfile);
+        const newCigarette = await cigarette.save();
+        res.status(201).json(newCigarette);
     }
     catch(err){
-        res.status(400).json({message: err.message});
+        res.status(400).json({message: "Error adding cigarettes!"});
     }
 })
 

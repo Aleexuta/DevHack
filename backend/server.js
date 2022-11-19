@@ -27,7 +27,7 @@ const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
 
 const smokerProfileRouter = require('./routes/smokerProfiles');
-app.use('/smokerProfiles',smokerProfileRouter);
+app.use('/smokerProfile',smokerProfileRouter);
 
 //sv listening
 app.listen(process.env.SV_PORT,  () =>{
