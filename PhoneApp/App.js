@@ -11,6 +11,8 @@ import {ValidateEmail, ValidatePassword, ValidateName} from './Validation';
 import PrincipalScreen from './components/flow/PrincipalScreen';
 import BadHabitsScreen from './components/flow/BadHabitsScreen';
 import SmokingScreen from './components/flow/BadHabitsModules/Smoke';
+import {fetch} from 'react-native-fetch-api';
+import axios from 'axios';
 const baseUrl = '';
 
 export default function App() {
@@ -60,7 +62,7 @@ export default function App() {
       isLoading: true,
       isSignout: false,
       inVerify: false,
-      isLoged: true,
+      isLoged: false,
     },
   );
 
@@ -91,7 +93,21 @@ export default function App() {
         try {
           const emailDat = data.email;
           const passDat = data.password;
-        } catch (err) {}
+          console.log(emailDat, passDat);
+          axios
+            .post('http://192.168.43.77:5000/auth/login', {
+              email: emailDat,
+              password: passDat,
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } catch (err) {
+          console.log(err);
+        }
       },
       signOut: () => {
         dispatch({type: 'SIGN_OUT'});
@@ -100,6 +116,41 @@ export default function App() {
       },
       signUp: async data => {
         try {
+          const email = data.email;
+          const pass = data.password;
+          const passConf = data.confpassword;
+          const firstname = data.firstname;
+          const lastname = data.lastname;
+          const unitate = data.unitate;
+          // trimitem la server si rezolvam erorile aparute
+          // daca e totul bine at o sa se deschida
+          if (pass !== passConf) {
+            throw new Error('Parolele nu se potrivest');
+          }
+          var res = ValidateName(firstname);
+          if (res === false) {
+            throw new Error('Format nume incorect');
+          }
+          res = ValidateName(lastname);
+          if (res === false) {
+            throw new Error('Format nume incorect');
+          }
+          res = ValidatePassword(pass);
+          if (res === false) {
+            throw new Error('Format parola incorect');
+          }
+          res = ValidateEmail(email);
+          if (res === false) {
+            throw new Error('Format email incorect');
+          }
+
+          res = await fetch('', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({}),
+          })
+            .then(response => response.json())
+            .then(data2 => this.setState({postId: data2.id}));
         } catch (err) {
           Alert.alert(err.message);
           console.log(err);
