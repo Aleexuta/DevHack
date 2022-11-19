@@ -65,16 +65,14 @@ function RegisterScreen({navigation}) {
                   email,
                   navigation,
                 })
-              }>
-              style=
-              {({pressed}) => [
+              }
+              style={({pressed}) => [
                 styles.button,
                 styles.buttonReg,
                 {
                   opacity: pressed ? 0.4 : 1,
                 },
-              ]}
-              >
+              ]}>
               <View>
                 <Text style={styles.text}>Register</Text>
               </View>

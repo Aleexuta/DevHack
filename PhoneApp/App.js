@@ -8,6 +8,7 @@ import AuthContext from './userContext';
 import RegisterScreen from './components/auth/register';
 import LoginScreen from './components/auth/login';
 import {ValidateEmail, ValidatePassword, ValidateName} from './Validation';
+import PrincipalScreen from './components/flow/PrincipalScreen';
 const baseUrl = '';
 
 export default function App() {
@@ -57,7 +58,7 @@ export default function App() {
       isLoading: true,
       isSignout: false,
       inVerify: false,
-      isLoged: false,
+      isLoged: true,
     },
   );
 
@@ -85,7 +86,6 @@ export default function App() {
   const authContext = React.useMemo(
     () => ({
       signIn: async data => {
-        const navig = data.navigation;
         try {
           const emailDat = data.email;
           const passDat = data.password;
@@ -97,8 +97,6 @@ export default function App() {
         AsyncStorage.clear();
       },
       signUp: async data => {
-        const navig = data.navigation;
-
         try {
         } catch (err) {
           Alert.alert(err.message);
@@ -136,9 +134,15 @@ export default function App() {
             </Stack.Group>
           </Stack.Navigator>
         ) : (
-          <View>
-            <Text>ceva</Text>
-          </View>
+          <Stack.Navigator
+            screenOptions={{headerShown: false, animationEnabled: false}}>
+            <Stack.Group
+              screenOptions={{
+                headerShown: false,
+              }}>
+              <Stack.Screen name="Principal" component={PrincipalScreen} />
+            </Stack.Group>
+          </Stack.Navigator>
         )}
       </NavigationContainer>
     </AuthContext.Provider>
