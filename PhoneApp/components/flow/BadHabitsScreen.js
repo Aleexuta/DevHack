@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Alert, StyleSheet, View, Text} from 'react-native';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import {Text, View, Image, Pressable, StyleSheet} from 'react-native';
+import {Alert} from 'react-native';
 import {COLORS} from '../../colors';
-
-function PrincipalScreen({navigation}) {
+function BadHabitsScreen({navigation}) {
   const handleClick = num => {
     Alert.alert(`${num} clicked`);
   };
@@ -18,7 +17,7 @@ function PrincipalScreen({navigation}) {
             fontFamily: 'Bison-Bold',
             color: COLORS.textColor,
           }}>
-          Titlu
+          BAD HABITS
         </Text>
       </View>
       <View style={styles.btnContainer}>
@@ -35,7 +34,10 @@ function PrincipalScreen({navigation}) {
               },
             ]}>
             <View>
-              <Text style={styles.text}>PROFILE</Text>
+              <Image
+                source={require('../../assets/images/burger.png')}
+                style={styles.image}
+              />
             </View>
           </Pressable>
           <Pressable
@@ -50,11 +52,16 @@ function PrincipalScreen({navigation}) {
               },
             ]}>
             <View>
-              <Text style={styles.text}>SUGGESTIONS</Text>
+              <Image
+                source={require('../../assets/images/cup-of-drink.png')}
+                style={styles.image}
+              />
             </View>
           </Pressable>
           <Pressable
-            onPress={() => handleClick(3)}
+            onPress={() => {
+              navigation.navigate('SmokerProfile');
+            }}
             style={({pressed}) => [
               styles.button,
               {
@@ -65,13 +72,14 @@ function PrincipalScreen({navigation}) {
               },
             ]}>
             <View>
-              <Text style={styles.text}>MOOD</Text>
+              <Image
+                source={require('../../assets/images/smoking.png')}
+                style={styles.image}
+              />
             </View>
           </Pressable>
           <Pressable
-            onPress={() => {
-              navigation.navigate('BadHabits');
-            }}
+            onPress={() => handleClick(4)}
             style={({pressed}) => [
               styles.button,
               {
@@ -82,7 +90,10 @@ function PrincipalScreen({navigation}) {
               },
             ]}>
             <View>
-              <Text style={styles.text}>BAD HABITS</Text>
+              <Image
+                source={require('../../assets/images/beer.png')}
+                style={styles.image}
+              />
             </View>
           </Pressable>
         </View>
@@ -97,6 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: COLORS.back,
   },
+  image: {transform: [{rotate: '315deg'}], width: 60, height: 60},
   title: {
     justifyContent: 'center',
     marginTop: 60,
@@ -139,8 +151,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Bison-Bold',
     fontSize: 30,
     transform: [{rotate: '315deg'}],
-    color: COLORS.textColor,
   },
 });
-
-export default PrincipalScreen;
+export default BadHabitsScreen;

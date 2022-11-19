@@ -9,6 +9,8 @@ import RegisterScreen from './components/auth/register';
 import LoginScreen from './components/auth/login';
 import {ValidateEmail, ValidatePassword, ValidateName} from './Validation';
 import PrincipalScreen from './components/flow/PrincipalScreen';
+import BadHabitsScreen from './components/flow/BadHabitsScreen';
+import SmokingScreen from './components/flow/BadHabitsModules/Smoke';
 const baseUrl = '';
 
 export default function App() {
@@ -141,6 +143,9 @@ export default function App() {
                 headerShown: false,
               }}>
               <Stack.Screen name="Principal" component={PrincipalScreen} />
+              <Stack.Screen name="BadHabits" component={BadHabitsScreen} />
+              <Stack.Screen name="SmokerProfile" component={SmokingScreen} />
+              <Stack.Screen name="Sugestion" component={LoginScreen} />
             </Stack.Group>
           </Stack.Navigator>
         )}
