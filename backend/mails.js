@@ -15,8 +15,12 @@ mongoose.connect(process.env.DATABASE_URL,
 //connecting to db
 const db = mongoose.connection;
 db.on('error', (err) => console.error(err));
-db.once('open', () => {console.log("Database connection established!")
+db.once('open', () => {console.log("Database connection established!");
 
+
+const cigaretteSchema = require('./models/cigarettesSmoked');
+const profileSchema = require('./models/SmokersProfiles');
+const UserSchema = require("./models/users");
 
 const nodemailer = require('nodemailer');
 var transport = nodemailer.createTransport({
@@ -28,35 +32,44 @@ var transport = nodemailer.createTransport({
     }
   });
 
-  message = {
-    from: "from-example@email.com",
-    to: "to-example@email.com",
-    subject: "Subject",
-    text: "Hello Teodor Email"
-}
-
-async function info() {await transport.sendMail(message)};
+async function info(message) {await transport.sendMail(message)};
 
 
-let date = new Date();
-date.setMinutes(date.getMinutes() + 2);
-let date2 = new Date();
-date2.setMinutes(date2.getMinutes() + 1);
-
-
-//info()
-console.log(date.getMinutes())
-// while(1){
  async function ceva(){
-  da = new Date();
-  // console.log(da.getMinutes())
-  // console.log(date2.getMinutes())
-  if(da.getMinutes() == date2.getMinutes()){
+    let moment = new Date();
+
+    let smokers = await profileSchema.find();
+
+    for(let it = 0; it < smokers.length; it++){
+      let result =  await cigaretteSchema.find({smokerId: smokers[it].smokerId})
+      let cigToday = new Array();
+      for(let i =0; i < result.length; i++){
+          if(result[i].time.getDate() == moment.getDate()
+                && result[i].time.getMonth() == moment.getMonth()
+                  && result[i].time.getYear() == moment.getYear()
+          ){
+            cigToday.push(result[i]);
+          }
+      }
+      
+
+      let user = await UserSchema.findById( smokers[it].smokerId)
+
+      message = {
+      from: 'badhabbits@gmail.com', // sender address
+      to: user.email, // list of receivers
+      subject: "Hello ✔", // Subject line
+      text: "Hello world?", // plain text body
+      html: "<b>Hello world?</b>", // html body}
+    }
+
+    
+
     console.log("Sended")
     await transport.sendMail(message)
-    date2.setMinutes(date2.getMinutes() - 20);
   }
 }
+
 
 setInterval(ceva, 5500);
 
