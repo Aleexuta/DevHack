@@ -34,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".badHabits"/>
+        <activity android:name=".noSettings"/>
+        <activity android:name=".smokingMenu"/>
     </application>
 
 </manifest>

@@ -23,6 +23,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets', 'src\\main\\res\\values\\color'
+            }
+        }
+    }
 }
 
 dependencies {
