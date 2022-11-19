@@ -205,7 +205,7 @@ function SmokingScreen({navigation}) {
                 </View>
               ) : (
                 <View>
-                  <Text>Do you want some suggestion instead?</Text>
+                  <Text>Do you want some suggestions instead?</Text>
                   <Pressable
                     onPress={() => {
                       navigation.navigate('Sugestion'); //ne intreaba daca vrem sugestii
@@ -254,7 +254,7 @@ function SmokingScreen({navigation}) {
                       },
                     ]}>
                     <View>
-                      <Text>I think i can do this</Text>
+                      <Text>I think I can do this</Text>
                     </View>
                   </Pressable>
                   <Pressable
