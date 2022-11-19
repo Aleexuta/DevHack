@@ -27,20 +27,22 @@
         tools:layout_editor_absoluteX="113dp" />
 
     <Button
-        android:id="@+id/statsBtn"
+        android:id="@+id/yesBtn"
         android:layout_width="112dp"
         android:layout_height="113dp"
         android:background="@color/formback_color"
-        android:text="Stats"
+        android:text="Yes"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/smokeBtn"
+        android:id="@+id/noBtn"
         android:layout_width="112dp"
         android:layout_height="113dp"
         android:background="@color/formback_color"
-        android:text="Smoke"
+        android:text="No"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -49,55 +51,24 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="92dp"
         android:src="@drawable/smoking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/t2"
-        android:layout_width="127dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="57dp"
-        android:text="Last time I smoked:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="95dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        android:text="Cigarettes left:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ciggaretesText"
-        android:layout_width="62dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="148dp"
-        android:text="TextView"
+        android:id="@+id/question"
+        android:layout_width="171dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="Text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/timeText"
-        android:layout_width="60dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="111dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="127dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

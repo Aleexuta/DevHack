@@ -38,6 +38,7 @@
         <activity android:name=".noSettings"/>
         <activity android:name=".smokingMenu"/>
         <activity android:name=".menu"/>
+        <activity android:name=".smokeDecide"/>
     </application>
 
 </manifest>
