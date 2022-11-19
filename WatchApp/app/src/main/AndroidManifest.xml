@@ -37,6 +37,7 @@
         <activity android:name=".badHabits"/>
         <activity android:name=".noSettings"/>
         <activity android:name=".smokingMenu"/>
+        <activity android:name=".menu"/>
     </application>
 
 </manifest>

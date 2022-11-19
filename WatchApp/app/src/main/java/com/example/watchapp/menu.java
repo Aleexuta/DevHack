@@ -13,23 +13,24 @@ import android.widget.TextView;
 
 import com.example.watchapp.databinding.ActivityMainBinding;
 
-public class MainActivity extends Activity {
+public class menu extends Activity {
 
-    private Button loginBtn;
+    private ImageButton badhabitsBtn;
+    private ImageButton moodBtn;
+    private ImageButton suggestionsBtn;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-            binding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
+        setContentView(R.layout.menu);
 
-            loginBtn= (Button) findViewById(R.id.loginBtn);
-             loginBtn.setOnClickListener(new View.OnClickListener() {
+        badhabitsBtn= (ImageButton) findViewById(R.id.badhabitsBtn);
+        badhabitsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, menu.class);
+                Intent intent=new Intent(menu.this, badHabits.class);
                 startActivity(intent);
             }
         });
