@@ -17,14 +17,13 @@ router.get('/', async (req, res) => {
 
 
 //GET one  --id
-router.get('/:id', idFunctions.getSmokerProfileID, async (req, res) => {
+router.get('/:id', idFunctions.getSmokerCigarettes, async (req, res) => {
     try{
         //size of ciggaretesSmoked
-        res.cigarretes
-        
+        res.status(200).json(res.final);
     }
     catch(err){
-        res.status(500).json({message: "Error getting smoker!1"});
+        res.status(500).json({message: "Error getting smoker!"});
     }
     
 })

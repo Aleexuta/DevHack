@@ -29,12 +29,14 @@ app.use('/auth', authRouter);
 const smokerProfileRouter = require('./routes/smokerProfiles');
 app.use('/smokerProfile',smokerProfileRouter);
 
+const cigarettesRouter = require('./routes/cigarettesSmoked');
+app.use('/cigarettes',cigarettesRouter);
+
 //sv listening
 app.listen(process.env.SV_PORT,  () =>{
      console.log('Server is running on port ' + process.env.SV_PORT + " ...")
-
-
-
+   
+     
 
 });
 
