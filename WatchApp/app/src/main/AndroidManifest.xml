@@ -3,7 +3,7 @@
     package="com.example.watchapp">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
@@ -39,6 +39,9 @@
         <activity android:name=".smokingMenu"/>
         <activity android:name=".menu"/>
         <activity android:name=".smokeDecide"/>
+        <activity android:name=".mood"/>
+        <activity android:name=".suggestions"/>
+
     </application>
 
 </manifest>

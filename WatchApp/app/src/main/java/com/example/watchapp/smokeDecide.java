@@ -39,7 +39,8 @@ public class smokeDecide extends Activity {
             noBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
-                    //go back to smoking menu
+                    Intent intent=new Intent(smokeDecide.this, smokingMenu.class);
+                    startActivity(intent);
 
                 }
             });
@@ -63,7 +64,8 @@ public class smokeDecide extends Activity {
             noBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
-                    //go back to smoking menu
+                    Intent intent=new Intent(smokeDecide.this, smokingMenu.class);
+                    startActivity(intent);
 
                 }
             });
