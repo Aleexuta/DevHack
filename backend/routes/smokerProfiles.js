@@ -40,7 +40,8 @@ router.post('/', async (req, res) => {
 
     try{
         const newProfile = await profile.save();
-        res.status(201).json(newProfile);
+        let final = {"isProfile": true, "number": 0, "lastTime": "-", "goal": newProfile.cigarettesGoal};
+        res.status(200).json(final);
     }
     catch(err){
         res.status(400).json({message: err.message});

@@ -26,6 +26,12 @@ async function getSmokerProfileID(req, res, next){
 async function getSmokerCigarettes(req, res, next){
     let cigarretes = new Array();
     let final;
+    profile = await smokersProfilesSchema.findOne({smokerId:req.params.id});
+    if(profile == null){
+        return res.status(200).json({"isProfile":false, "number": 0, lastTime: 0, "goal": 0})
+    }
+
+
     try{
        // return res.status(404).json(req.params.id)
        let result = await cigarretesSchema.find({smokerId:req.params.id});
@@ -34,7 +40,7 @@ async function getSmokerCigarettes(req, res, next){
     }
        let timeNow = new Date();
        let max = 0;
-       let lastSmoked;
+       let lastSmoked = 0;
        for(let i = 0; i < result.length; i++){
         if(timeNow.getDate() == result[i].time.getDate() && 
                     timeNow.getMonth() == result[i].time.getMonth()&&
@@ -43,7 +49,7 @@ async function getSmokerCigarettes(req, res, next){
             cigarretes.push(result[i])
             if(max < result[i].time.getTime()){
                 max = result[i].time.getTime()
-                lastSmoked = result[i].time;
+                lastSmoked = result[i].time.getMinutes() + result[i].time.getHours()*60;
             }
         }
        }
@@ -61,10 +67,13 @@ async function getSmokerCigarettes(req, res, next){
         catch(err){
         return res.status(500).json({message: err.message})
         }
-
-       
-
-       final = {"number": cigarretes.length, lastTime: lastSmoked, "goal": goal};
+        
+       let auxDate = new Date();
+       let minutesSinceLastCig = '-'; 
+       if(lastSmoked != 0){
+            minutesSinceLastCig = auxDate.getMinutes() + auxDate.getHours()*60 - lastSmoked;
+       }
+       final = {"isProfile": true, "number": cigarretes.length, lastTime: minutesSinceLastCig, "goal": goal};
        
     }
     catch(err){

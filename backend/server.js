@@ -32,11 +32,15 @@ app.use('/smokerProfile',smokerProfileRouter);
 const cigarettesRouter = require('./routes/cigarettesSmoked');
 app.use('/cigarettes',cigarettesRouter);
 
+const suggestionsRouter = require('./routes/suggestions');
+app.use('/suggestions',suggestionsRouter);
+
+
 
 
 
 //sv listening
-app.listen(process.env.SV_PORT,  () =>{
+app.listen(process.env.SV_PORT, "192.168.43.77", () =>{
      console.log('Server is running on port ' + process.env.SV_PORT + " ...")
 });
 
