@@ -15,6 +15,7 @@ const baseUrl = 'http://10.13.0.5:2409/api';
 import axios from 'axios';
 import SugestionScreen from './components/flow/Sugestions';
 import MoodScreen from './components/flow/Mood/Mood';
+import ProfileScreen from './components/flow/Profile';
 export default function App() {
   const [userActiv, setUserActiv] = useState({
     //aici stocam ce intoarce de la server
@@ -191,6 +192,7 @@ export default function App() {
               <Stack.Screen name="SmokerProfile" component={SmokingScreen} />
               <Stack.Screen name="Sugestion" component={SugestionScreen} />
               <Stack.Screen name="Mood" component={MoodScreen} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Group>
           </Stack.Navigator>
         )}

@@ -15,6 +15,8 @@ function SugestionScreen({navigation}) {
       })
       .then(function (response) {
         console.log(response);
+        setTitle('');
+        setDetails('');
         onRefresh();
       })
       .catch(function (error) {
@@ -60,8 +62,8 @@ function SugestionScreen({navigation}) {
         paddingLeft: 30,
         paddingRight: 30,
       }}>
-      <Text style={{margin: 5}}>{item.title}</Text>
-      <Text style={{margin: 5}}>{item.details}</Text>
+      <Text style={{margin: 5, color: COLORS.textColor}}>{item.title}</Text>
+      <Text style={{margin: 5, color: COLORS.textColor}}>{item.details}</Text>
     </View>
   );
   return (
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: COLORS.back,
+    paddingTop: 30,
   },
   listView: {},
   addView: {

@@ -25,7 +25,9 @@ function PrincipalScreen({navigation}) {
       <View style={styles.btnContainer}>
         <View style={styles.btnContainerMiddle}>
           <Pressable
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate('Profile');
+            }}
             style={({pressed}) => [
               styles.button,
               {
