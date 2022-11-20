@@ -11,8 +11,8 @@ import {ValidateEmail, ValidatePassword, ValidateName} from './Validation';
 import PrincipalScreen from './components/flow/PrincipalScreen';
 import BadHabitsScreen from './components/flow/BadHabitsScreen';
 import SmokingScreen from './components/flow/BadHabitsModules/Smoke';
-const baseUrl = '';
-
+const baseUrl = 'http://10.13.0.5:2409/api';
+import axios from 'axios';
 export default function App() {
   const [userActiv, setUserActiv] = useState({
     //aici stocam ce intoarce de la server
@@ -28,6 +28,7 @@ export default function App() {
             ...prevState,
             isLoading: false,
             inVerify: false,
+            //isLoged: true,
           };
         case 'SIGN_IN': //login
           return {
@@ -38,7 +39,6 @@ export default function App() {
         case 'SIGN_OUT': //logout
           return {
             ...prevState,
-            userToken: null,
             isSignout: true,
             inVerify: false,
             isLoged: false,
@@ -46,12 +46,6 @@ export default function App() {
         case 'SIGN_UP': //register
           return {
             ...prevState,
-            inVerify: true,
-          };
-        case 'VERIFY_SIGN_IN': //aici face partea de login
-          return {
-            ...prevState,
-            isSignout: false,
             inVerify: false,
           };
       }
@@ -60,7 +54,7 @@ export default function App() {
       isLoading: true,
       isSignout: false,
       inVerify: false,
-      isLoged: true,
+      isLoged: false,
     },
   );
 
@@ -91,6 +85,27 @@ export default function App() {
         try {
           const emailDat = data.email;
           const passDat = data.password;
+          console.log(emailDat, passDat);
+          axios
+            .post('http://192.168.43.77:5000/auth/login', {
+              email: emailDat,
+              password: passDat,
+            })
+            .then(function (response) {
+              if (response.status === 200) {
+                setUserActiv(response.data);
+                console.log(response.data);
+                AsyncStorage.setItem('user', JSON.stringify(response.data));
+                dispatch({
+                  type: 'SIGN_IN',
+                });
+              }
+            })
+            .catch(function (error) {
+              if (error.response) {
+                Alert.alert(error.message);
+              }
+            });
         } catch (err) {}
       },
       signOut: () => {
@@ -100,6 +115,33 @@ export default function App() {
       },
       signUp: async data => {
         try {
+          const email = data.email;
+          const pass = data.password;
+          const passConf = data.confpassword;
+          const firstname = data.firstname;
+          const lastname = data.lastname;
+          const navig = data.navigation;
+          axios
+            .post('http://192.168.43.77:5000/auth/register', {
+              email: email,
+              password: pass,
+              last_name: lastname,
+              first_name: firstname,
+            })
+            .then(function (response) {
+              if (response.status === 200) {
+                setUserActiv(response.data);
+                console.log(response.data);
+                AsyncStorage.setItem('user', JSON.stringify(response.data));
+                dispatch({type: 'SIGN_UP'});
+                navig.navigate('Login');
+              }
+            })
+            .catch(function (error) {
+              if (error.response) {
+                Alert.alert(error.message);
+              }
+            });
         } catch (err) {
           Alert.alert(err.message);
           console.log(err);

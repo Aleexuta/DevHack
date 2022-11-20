@@ -6,6 +6,7 @@ import {Alert, View, Text, Pressable, StyleSheet, Image} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import {COLORS} from '../../../colors';
+import axios from 'axios';
 function SmokingScreen({navigation}) {
   const [smokingProfile, setSmokingProfile] = useState({
     isProfile: true,
@@ -16,30 +17,62 @@ function SmokingScreen({navigation}) {
   const [weekly, setWeekly] = useState(false);
   const [never, setNever] = useState(false);
   const [progress, setProgress] = useState('20%');
-  //   useEffect(() => {
-  //     const _GetSmokerProfile = async () => {
-  //       let userId;
-  //       AsyncStorage.getItem('user')
-  //         .then(value => {
-  //           userId = JSON.parse(value).id;
-  //           axios
-  //             .get('')
-  //             .then(function (response) {
-  //               if (response.status === 200) {
-  //               }
-  //             })
-  //             .catch(function (error) {
-  //               console.log(error);
-  //               Alert.alert(error.message);
-  //             });
-  //         })
-  //         .catch(err => {
-  //           console.log(err);
-  //         });
-  //     };
-  //     _GetSmokerProfile();
-  //   }, []);
-
+  useEffect(() => {
+    const _GetSmokerProfile = async () => {
+      let userId;
+      AsyncStorage.getItem('user')
+        .then(value => {
+          userId = JSON.parse(value).userId;
+          console.log(userId);
+          axios
+            .get(`http://192.168.43.77:5000/cigarettes/${userId}`)
+            .then(function (response) {
+              if (response.status === 200) {
+                console.log(response.data);
+                setSmokingProfile(response.data);
+                const nr = response.data.number;
+                const v = nr / response.data.goal;
+                console.log(v);
+                setProgress(v);
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+              Alert.alert(error.message);
+            });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    _GetSmokerProfile();
+  }, []);
+  const _CreateSmokerProfile = () => {
+    let userId;
+    AsyncStorage.getItem('user')
+      .then(value => {
+        userId = JSON.parse(value).userId;
+        console.log(userId);
+        axios
+          .post(`http://192.168.43.77:5000/smokerProfile/`, {
+            smokerId: userId,
+            cigarettesGoal: numberOfCigarets,
+            dailyNot: daily,
+            weeklyNot: weekly,
+            noNot: never,
+          })
+          .then(function (response) {
+            console.log(response.data);
+            setSmokingProfile(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   const [messState, setMessState] = useState(-1);
   return smokingProfile.isProfile === false ? (
     <View style={styles.content}>
@@ -59,11 +92,11 @@ function SmokingScreen({navigation}) {
           <Pressable
             onPress={() => {
               var value = parseInt(numberOfCigarets, 10);
-              value = value + 1;
+              value = Math.max(value - 1, 0);
               setNumberOfCigarets(value.toString());
             }}>
             <View style={styles.button}>
-              <Text style={{fontSize: 30, textAlign: 'center'}}>+</Text>
+              <Text style={{fontSize: 30, textAlign: 'center'}}>-</Text>
             </View>
           </Pressable>
           <TextInput
@@ -74,11 +107,11 @@ function SmokingScreen({navigation}) {
           <Pressable
             onPress={() => {
               var value = parseInt(numberOfCigarets, 10);
-              value = Math.max(value - 1, 0);
+              value = value + 1;
               setNumberOfCigarets(value.toString());
             }}>
             <View style={styles.button}>
-              <Text style={{fontSize: 30, textAlign: 'center'}}>-</Text>
+              <Text style={{fontSize: 30, textAlign: 'center'}}>+</Text>
             </View>
           </Pressable>
         </View>
@@ -128,7 +161,9 @@ function SmokingScreen({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => {}}
+            onPress={() => {
+              _CreateSmokerProfile();
+            }}
             style={({pressed}) => [
               styles.button2,
               styles.buttonReg,
@@ -312,12 +347,16 @@ function SmokingScreen({navigation}) {
       ) : (
         <View />
       )}
-
-      <View style={styles.progressView}>
-        <View style={styles.bar}>
-          <View style={[styles.barfull, {width: progress}]} />
+      <View style={{position: 'absolute', bottom: 50}}>
+        <Text style={{margin: 10, textAlign: 'center'}}>
+          Last cigarette was {smokingProfile.lastTime} minutes ago
+        </Text>
+        <View style={styles.progressView}>
+          <View style={styles.bar}>
+            <View style={[styles.barfull, {width: progress}]} />
+          </View>
+          <Text> 0/8</Text>
         </View>
-        <Text> 0/8</Text>
       </View>
     </View>
   );
@@ -341,8 +380,6 @@ const styles = StyleSheet.create({
   },
   progressView: {
     flexDirection: 'row',
-    position: 'absolute',
-    bottom: 50,
   },
   barfull: {
     backgroundColor: COLORS.buton,
@@ -431,6 +468,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     flexDirection: 'row',
+    marginTop: 20,
   },
   iwantcig: {
     backgroundColor: COLORS.buton,
