@@ -31,9 +31,11 @@ function SmokingScreen({navigation}) {
                 console.log(response.data);
                 setSmokingProfile(response.data);
                 const nr = response.data.number;
-                const v = nr / response.data.goal;
-                console.log(v);
-                setProgress(v);
+                var v = (nr / response.data.goal) * 100;
+                if (v > 100) {
+                  v = 100;
+                }
+                setProgress(v.toString() + '%');
               }
             })
             .catch(function (error) {
@@ -64,6 +66,27 @@ function SmokingScreen({navigation}) {
           .then(function (response) {
             console.log(response.data);
             setSmokingProfile(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  const _AddCigarette = () => {
+    let userId;
+    AsyncStorage.getItem('user')
+      .then(value => {
+        userId = JSON.parse(value).userId;
+        console.log(userId);
+        axios
+          .post(`http://192.168.43.77:5000/cigarettes/`, {
+            smokerId: userId,
+          })
+          .then(function (response) {
+            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
@@ -226,6 +249,9 @@ function SmokingScreen({navigation}) {
                   <Pressable
                     onPress={() => {
                       //trimite la server ca am fumat
+                      _AddCigarette();
+
+                      navigation.navigate('Principal');
                     }}
                     style={({pressed}) => [
                       styles.iwantcig,
@@ -257,8 +283,10 @@ function SmokingScreen({navigation}) {
                   </Pressable>
                   <Pressable
                     onPress={() => {
-                      navigation.navigate('Principal');
                       //trimite la server ca am fumat
+                      _AddCigarette();
+
+                      navigation.navigate('Principal');
                     }}
                     style={({pressed}) => [
                       styles.iwantcig,
@@ -295,6 +323,8 @@ function SmokingScreen({navigation}) {
                   <Pressable
                     onPress={() => {
                       //trimite la server ca am fumat
+                      _AddCigarette();
+                      navigation.navigate('Principal');
                     }}
                     style={({pressed}) => [
                       styles.iwantcig,
@@ -326,6 +356,7 @@ function SmokingScreen({navigation}) {
                   </Pressable>
                   <Pressable
                     onPress={() => {
+                      _AddCigarette();
                       navigation.navigate('Principal');
                       //trimite la server ca am fumat
                     }}
@@ -355,7 +386,9 @@ function SmokingScreen({navigation}) {
           <View style={styles.bar}>
             <View style={[styles.barfull, {width: progress}]} />
           </View>
-          <Text> 0/8</Text>
+          <Text>
+            {smokingProfile.number}/{smokingProfile.goal}
+          </Text>
         </View>
       </View>
     </View>
