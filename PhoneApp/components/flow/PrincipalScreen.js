@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Alert, StyleSheet, View, Text} from 'react-native';
+import {Alert, StyleSheet, View, Text, Image} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {COLORS} from '../../colors';
 
@@ -9,13 +9,17 @@ function PrincipalScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
+        <Image
+          source={require('../../assets/images/logo.png')}
+          style={{width: 50, height: 50, marginRight: 15}}
+        />
         <Text
           style={{
             fontSize: 35,
             fontFamily: 'Bison-Bold',
             color: COLORS.textColor,
           }}>
-          Titlu
+          HEALTH BOOST+
         </Text>
       </View>
       <View style={styles.btnContainer}>
@@ -97,6 +101,7 @@ const styles = StyleSheet.create({
   title: {
     justifyContent: 'center',
     marginTop: 60,
+    flexDirection: 'row',
   },
   btnContainer: {
     transform: [{rotate: '45deg'}],
