@@ -146,6 +146,12 @@ function SmokingScreen({navigation}) {
                 disable={false}
                 value={daily}
                 onValueChange={newvalue => setDaily(newvalue)}
+                onTintColors={COLORS.buton}
+                onFillColors={COLORS.buton}
+                tintColors={{
+                  true: COLORS.buton,
+                  false: COLORS.buton,
+                }}
               />
               <Text style={styles.text}>Daily</Text>
             </View>
@@ -154,6 +160,12 @@ function SmokingScreen({navigation}) {
                 disable={false}
                 value={weekly}
                 onValueChange={newvalue => setWeekly(newvalue)}
+                onTintColors={COLORS.buton}
+                onFillColors={COLORS.buton}
+                tintColors={{
+                  true: COLORS.buton,
+                  false: COLORS.buton,
+                }}
               />
               <Text style={styles.text}>Weekly</Text>
             </View>
@@ -162,6 +174,12 @@ function SmokingScreen({navigation}) {
                 disable={false}
                 value={never}
                 onValueChange={newvalue => setNever(newvalue)}
+                onTintColors={COLORS.buton}
+                onFillColors={COLORS.buton}
+                tintColors={{
+                  true: COLORS.buton,
+                  false: COLORS.buton,
+                }}
               />
               <Text style={styles.text}>Never</Text>
             </View>

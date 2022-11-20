@@ -5,9 +5,6 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {COLORS} from '../../colors';
 
 function PrincipalScreen({navigation}) {
-  const handleClick = num => {
-    Alert.alert(`${num} clicked`);
-  };
   var mg = 0;
   return (
     <View style={styles.container}>
@@ -24,7 +21,7 @@ function PrincipalScreen({navigation}) {
       <View style={styles.btnContainer}>
         <View style={styles.btnContainerMiddle}>
           <Pressable
-            onPress={() => handleClick(1)}
+            onPress={() => {}}
             style={({pressed}) => [
               styles.button,
               {
@@ -39,7 +36,7 @@ function PrincipalScreen({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => handleClick(2)}
+            onPress={() => navigation.navigate('Sugestion')}
             style={({pressed}) => [
               styles.button,
               {
@@ -54,7 +51,7 @@ function PrincipalScreen({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => handleClick(3)}
+            onPress={() => navigation.navigate('Mood')}
             style={({pressed}) => [
               styles.button,
               {

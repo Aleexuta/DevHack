@@ -4,9 +4,6 @@ import {Text, View, Image, Pressable, StyleSheet} from 'react-native';
 import {Alert} from 'react-native';
 import {COLORS} from '../../colors';
 function BadHabitsScreen({navigation}) {
-  const handleClick = num => {
-    Alert.alert(`${num} clicked`);
-  };
   var mg = 0;
   return (
     <View style={styles.container}>
@@ -23,7 +20,7 @@ function BadHabitsScreen({navigation}) {
       <View style={styles.btnContainer}>
         <View style={styles.btnContainerMiddle}>
           <Pressable
-            onPress={() => handleClick(1)}
+            onPress={() => {}}
             style={({pressed}) => [
               styles.button,
               {
@@ -41,7 +38,7 @@ function BadHabitsScreen({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => handleClick(2)}
+            onPress={() => {}}
             style={({pressed}) => [
               styles.button,
               {
@@ -79,7 +76,7 @@ function BadHabitsScreen({navigation}) {
             </View>
           </Pressable>
           <Pressable
-            onPress={() => handleClick(4)}
+            onPress={() => {}}
             style={({pressed}) => [
               styles.button,
               {

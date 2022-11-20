@@ -13,6 +13,8 @@ import BadHabitsScreen from './components/flow/BadHabitsScreen';
 import SmokingScreen from './components/flow/BadHabitsModules/Smoke';
 const baseUrl = 'http://10.13.0.5:2409/api';
 import axios from 'axios';
+import SugestionScreen from './components/flow/Sugestions';
+import MoodScreen from './components/flow/Mood/Mood';
 export default function App() {
   const [userActiv, setUserActiv] = useState({
     //aici stocam ce intoarce de la server
@@ -28,7 +30,7 @@ export default function App() {
             ...prevState,
             isLoading: false,
             inVerify: false,
-            //isLoged: true,
+            isLoged: true,
           };
         case 'SIGN_IN': //login
           return {
@@ -187,7 +189,8 @@ export default function App() {
               <Stack.Screen name="Principal" component={PrincipalScreen} />
               <Stack.Screen name="BadHabits" component={BadHabitsScreen} />
               <Stack.Screen name="SmokerProfile" component={SmokingScreen} />
-              <Stack.Screen name="Sugestion" component={LoginScreen} />
+              <Stack.Screen name="Sugestion" component={SugestionScreen} />
+              <Stack.Screen name="Mood" component={MoodScreen} />
             </Stack.Group>
           </Stack.Navigator>
         )}
