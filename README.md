@@ -1,4 +1,7 @@
-# DevHack
+# DevHack - STA Team:
+  Neagu Alexandra Codruta
+  Amzuloiu Teodor
+  Amzuloiu Sergiu
 
 
 Aplicatie de gestionare al viciilor, de urmarire a starii psihice a utilizatorului si de discutii si recomandari.
